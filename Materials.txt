@@ -1,0 +1,4 @@
+Depencies
+
+* npm install react-native-svg
+* npm i react-native-svg-transformer
