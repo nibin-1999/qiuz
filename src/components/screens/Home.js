@@ -1,61 +1,27 @@
+import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList, TextInput } from 'react-native'
-import React, { useState } from 'react'
 
 import Search from '../../assets/icons/search.svg'
 
 const {width, height} = Dimensions.get("screen")
 
 
-
 const Home = () => {
+        const category = [
+        { id: 1, name: 'All' },
+        { id: 2, name: 'Branding' },
+        { id: 3, name: 'Animation' },
+        { id: 4, name: 'Website' },
+        { id: 5, name: 'Trading' },
+        { id: 6, name: 'Graphics' },
+        { id: 7, name: 'UI Design' },
+        { id: 8, name: 'Modeling' },
+        ];
 
-   const  category =[
-        {
-            id:1,
-            name: "All"
-        },
-        {
-            id:2,
-            name: "Branding"
-        },
-        {
-            id:3,
-            name: "Animation"
-        },
-        {
-            id:4,
-            name: "Website"
-        },
-        {
-            id:5,
-            name: "Trading"
-        },
-        {
-            id:6,
-            name: "Gaphics"
-        },
-        {
-            id:7,
-            name: "UI Design"
-        },
-        {
-            id:8,
-            name: "Modeling"
-        },
-    ]
-
-    const question = [
-        {
-            id:1,
-            image: '../../assets/images/coffee.jpg'
-        },
-        {
-            id: 2,
-            image: '../../assets/images/tea.jpg'
-        }
-    ]
-
-    const [active,setActive]=useState(0)
+        const [active, setActive] = useState(0);
+        const [selectedRound, setSelectedRound] = useState(null);
+        const [percentage, setPercentage] = useState(0);
+        
 
     return (
         <SafeAreaView style={styles.mainContainer} >
@@ -90,30 +56,34 @@ const Home = () => {
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity style={styles.questionContainer}>
-                    <Text style={styles.question}>which one is cleaner preview?</Text>
+                    <Text style={styles.question}>coffe or tea ?</Text>
                 </TouchableOpacity>
                 <View>
                     <View  style={styles.questionImageContainer}>
-
-                        <TouchableOpacity style={styles.imageContainer}>
+                        <TouchableOpacity
+                            style={styles.imageContainer}
+                            onPress={() => setSelectedRound(1)}>
                             <Image style={styles.image} source={require('../../assets/images/coffee.jpg')} />
-                            <View style={styles.roundContainer}>
+                            <View style={selectedRound === 1 ? styles.roundContainerActive : styles.roundContainer}>
                                 <Text style={styles.roundText}>1</Text>
                             </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity  style={styles.imageContainer}>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                            style={styles.imageContainer}
+                            onPress={() => setSelectedRound(2)}
+                            >
                             <Image style={styles.image} source={require('../../assets/images/tea.jpg')} />
-                            <View style={styles.roundContainer}>
+                            <View style={selectedRound === 2 ? styles.roundContainerActive : styles.roundContainer}>
                                 <Text style={styles.roundText}>2</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <View></View>
                     </View>
                 </View>
                 <View>
-                    <TextInput />
+                    <TextInput/>
                 </View>
             </View>
         </SafeAreaView>
@@ -237,6 +207,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
 
     },
+    container: {
+        width: '100%',
+        height: 30,
+        backgroundColor: '#e0e0e0',
+        borderRadius: 5,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+      },
+      bar: {
+        height: '100%',
+        backgroundColor: '#4caf50',
+      },
+      text: {
+        marginLeft: 10,
+        color: '#000',
+      },
 });
-
-// style={active==item.id?styles.categoryButtonActive:styles.categoryButton}>
