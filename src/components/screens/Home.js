@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList, TextInput } from 'react-native'
+import Carousel from 'react-native-snap-carousel';
+
 
 import Search from '../../assets/icons/search.svg'
 
 const {width, height} = Dimensions.get("screen")
 
 
-const Home = () => {
+const Home = ({navigation}) => {
+
         const category = [
         { id: 1, name: 'All' },
         { id: 2, name: 'Branding' },
@@ -18,11 +21,32 @@ const Home = () => {
         { id: 8, name: 'Modeling' },
         ];
 
-        const [active, setActive] = useState(0);
-        const [selectedRound, setSelectedRound] = useState(null);
-        const [percentage, setPercentage] = useState(0);
+        const question =[
+            {
+                id:1, 
+                title: "coffee or tea ?",
+                image1: require("../../assets/images/coffee.jpg"),
+                image2: require("../../assets/images/tea.jpg"),
+            },
+            {
+                id:2, 
+                title: "pizza or cake ?",
+                image1: require("../../assets/images/pizza.jpg"),
+                image2: require("../../assets/images/cake.jpg"),
+            },
+            {
+                id:3, 
+                title: "grape or berry ?",
+                image1: require("../../assets/images/grape.webp"),
+                image2: require("../../assets/images/berry.webp"),
+            },
+        ];
         
 
+    const [active, setActive] = useState(1);
+    const [selectedRounds, setSelectedRounds] = useState(Array(question.length).fill(null));
+
+    
     return (
         <SafeAreaView style={styles.mainContainer} >
 
@@ -53,39 +77,47 @@ const Home = () => {
                     />
                 </View>
             </View>
-
-            <View style={styles.bottomContainer}>
-                <TouchableOpacity style={styles.questionContainer}>
-                    <Text style={styles.question}>coffe or tea ?</Text>
-                </TouchableOpacity>
-                <View>
-                    <View  style={styles.questionImageContainer}>
+            <FlatList
+                contentContainerStyle={styles.choiceContainer}
+                data={question}
+                renderItem={({ item, index }) => (
+                    <View style={styles.bottomContainer}>
                         <TouchableOpacity
-                            style={styles.imageContainer}
-                            onPress={() => setSelectedRound(1)}>
-                            <Image style={styles.image} source={require('../../assets/images/coffee.jpg')} />
-                            <View style={selectedRound === 1 ? styles.roundContainerActive : styles.roundContainer}>
-                                <Text style={styles.roundText}>1</Text>
-                            </View>
+                            onPress={() => navigation.navigate('Detail', { item })}
+                            style={styles.questionContainer}>
+                                <Text style={styles.question}>{item.title}</Text>
+                        </TouchableOpacity>
+                        <View style={styles.questionImageContainer}>
+                            <TouchableOpacity
+                                style={styles.imageContainer}
+                                onPress={() => {
+                                const newSelectedRounds = [...selectedRounds];
+                                newSelectedRounds[index] = 1;
+                                setSelectedRounds(newSelectedRounds);
+                                }}>
+                                <Image style={styles.image} source={item.image1} />
+                                <View style={selectedRounds[index] === 1 ? styles.roundContainerActive : styles.roundContainer}>
+                                    <Text style={styles.roundText}>1</Text>
+                                </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                            style={styles.imageContainer}
-                            onPress={() => setSelectedRound(2)}
-                            >
-                            <Image style={styles.image} source={require('../../assets/images/tea.jpg')} />
-                            <View style={selectedRound === 2 ? styles.roundContainerActive : styles.roundContainer}>
+                                style={styles.imageContainer}
+                                onPress={() => {
+                                const newSelectedRounds = [...selectedRounds];
+                                newSelectedRounds[index] = 2;
+                                setSelectedRounds(newSelectedRounds);
+                                }}>
+                                <Image style={styles.image} source={item.image2} />
+                                <View style={selectedRounds[index] === 2 ? styles.roundContainerActive : styles.roundContainer}>
                                 <Text style={styles.roundText}>2</Text>
-                            </View>
-                        </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View>
-                    </View>
-                </View>
-                <View>
-                    <TextInput/>
-                </View>
-            </View>
+                )}
+            />
+
         </SafeAreaView>
     )
 }
@@ -224,5 +256,8 @@ const styles = StyleSheet.create({
       text: {
         marginLeft: 10,
         color: '#000',
+      },
+      choiceContainer: {
+
       },
 });
