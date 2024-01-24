@@ -1,12 +1,15 @@
 import  { React,useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image,  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Modal,  } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import Carousel from 'react-native-snap-carousel';
+
+import Close from '../../assets/icons/Close.svg'
 
 const Choice = () => {
     const navigation = useNavigation(); 
 
     const [selectedRounds, setSelectedRounds] = useState([]);
+    const [popup, setPopup] = useState(false);
 
     const questions = [
         {
@@ -52,6 +55,7 @@ const Choice = () => {
                             const newSelectedRounds = [...selectedRounds];
                             newSelectedRounds[index] = 1;
                             setSelectedRounds(newSelectedRounds);
+                            setPopup(true)
                             }}>
                             <Image style={styles.image} source={item.image1} />
                             <View
@@ -63,6 +67,27 @@ const Choice = () => {
                                 <Text style={styles.roundText}>1</Text>
                             </View>
                         </TouchableOpacity>
+                        <Modal 
+                            transparent= {true}
+                            visible={popup}>
+                                <View style={styles.modalMainContainer}>
+                                    <View style={styles.modalContainer}>
+                                        <TouchableOpacity onPress={()=> setPopup(false)} style={styles.close}>
+                                            <Close height={30} width={30} />
+                                        </TouchableOpacity>
+                                        <View style={styles.Container}>
+                                            <Image style={styles.logoimage} source={require('../../assets/icons/popup.png')} />
+                                        </View>
+                                        <View  style={styles.textContainer}>
+                                            <Text style={styles.titleText}>You got 5 points from answering the question</Text>
+                                            <Text style={styles.descriptionText}>keep answering questions and earn points for asking later</Text>
+                                        </View>
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Home', { item })}>
+                                            <Text style={styles.buttonText}>Back to home</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                        </Modal>
 
                         <TouchableOpacity
                             style={styles.imageContainer}
@@ -70,6 +95,7 @@ const Choice = () => {
                             const newSelectedRounds = [...selectedRounds];
                             newSelectedRounds[index] = 2;
                             setSelectedRounds(newSelectedRounds);
+                            setPopup(true)
                             }}>
                             <Image style={styles.image} source={item.image2} />
                             <View
@@ -238,5 +264,63 @@ const styles = StyleSheet.create({
     carousel:{
         width: '60%',
         // marginHorizontal: '10%',
-    }
+    },
+
+    modalMainContainer: {
+        backgroundColor: '#000000aa',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    modalContainer: {
+        backgroundColor: '#fff',
+        margin: 50,
+        padding: 25,
+        borderRadius: 10,
+    },
+    close: {
+        height: 10,
+        alignSelf: 'flex-end',
+        marginBottom: 50
+    },
+    Container: {
+        alignItems: 'center',
+    },
+    textContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 50,
+    },
+    logoimage: {
+        height: 100,
+        width: 100,
+    },
+    titleText: {
+        fontSize:18,
+        fontWeight:'bold',
+        color: '#000',
+        alignContent: 'center',
+        marginBottom: 8,
+        textAlign: 'center'
+    },
+    descriptionText: {
+        fontSize: 12,
+        fontWeight:'bold',
+        marginHorizontal: 30,
+        textAlign: 'center'
+       
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        marginHorizontal: 40,
+        backgroundColor: '#355FFE',
+        borderRadius:10,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize:12,
+
+    },
 });

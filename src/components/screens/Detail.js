@@ -1,5 +1,6 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import {React, useState} from 'react'
+import { useNavigation } from '@react-navigation/native'; 
 
 import ArrowIcon from '../../assets/icons/Arrow.svg';
 import MenuIcon from '../../assets/icons/Menu.svg';
@@ -8,14 +9,19 @@ import Choice from '../includes/Choice'
 import Think from '../includes/Think'
 import CommentCard from '../includes/CommentCard';
 
-const Detail = () => {
+const Detail = ({item}) => {
 
+    const navigation = useNavigation(); 
 	
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.headerContainer}>
 				<TouchableOpacity style={styles.iconContainer}>
-					<ArrowIcon width={25} height={25} />
+					<ArrowIcon 
+						width={25} 
+						height={25} 
+						onPress={() => navigation.navigate('Home', { item })}
+					/>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.iconContainer}>
 					<MenuIcon width={25} height={25} />
