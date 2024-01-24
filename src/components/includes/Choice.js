@@ -10,6 +10,8 @@ const Choice = () => {
 
     const [selectedRounds, setSelectedRounds] = useState([]);
     const [popup, setPopup] = useState(false);
+    const [percentage, setPercentage] = useState(false);
+
 
     const questions = [
         {
@@ -52,10 +54,14 @@ const Choice = () => {
                         <TouchableOpacity
                             style={styles.imageContainer}
                             onPress={() => {
+                        
                             const newSelectedRounds = [...selectedRounds];
                             newSelectedRounds[index] = 1;
                             setSelectedRounds(newSelectedRounds);
-                            setPopup(true)
+                            setPercentage(!percentage)
+                            setTimeout(() => {
+                                setPopup(true) 
+                            }, 3000);
                             }}>
                             <Image style={styles.image} source={item.image1} />
                             <View
@@ -82,7 +88,7 @@ const Choice = () => {
                                             <Text style={styles.titleText}>You got 5 points from answering the question</Text>
                                             <Text style={styles.descriptionText}>keep answering questions and earn points for asking later</Text>
                                         </View>
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Home', { item })}>
+                                        <TouchableOpacity style={styles.buttonContainer} onPress={() =>setPopup(false)}>
                                             <Text style={styles.buttonText}>Back to home</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -94,8 +100,10 @@ const Choice = () => {
                             onPress={() => {
                             const newSelectedRounds = [...selectedRounds];
                             newSelectedRounds[index] = 2;
-                            setSelectedRounds(newSelectedRounds);
-                            setPopup(true)
+                            setSelectedRounds(newSelectedRounds);setPercentage(!percentage)
+                            setTimeout(() => {
+                                setPopup(true) 
+                            }, 3000);
                             }}>
                             <Image style={styles.image} source={item.image2} />
                             <View
@@ -108,15 +116,15 @@ const Choice = () => {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.percentageContainer}>
-                        <View style={styles.leftPercentage}>
-                            <Text style={styles.leftPercentageText}>65%</Text>
-                        </View>
-                        <View style={styles.rightPercentage}>
-                            <Text style={styles.rightPercentageText}>35%</Text>
-                        </View>
+                    <View style={ percentage==true ? styles.percentageContainer: styles.percentageContainerInactive }>
+                            <View style={styles.leftPercentage}>
+                                <Text style={styles.leftPercentageText}>65%</Text>
+                            </View>
+                            <View style={styles.rightPercentage}>
+                                <Text style={styles.rightPercentageText}>35%</Text>
+                            </View>
                     </View>
-                    
+                                    
             </View>
         );
     }
@@ -227,13 +235,15 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     percentageContainer: {
-        // display: 'none',
         flexDirection: 'row',
         marginVertical: 10,
         backgroundColor: '#e8e8e8',
         borderRadius: 10,
         height: 35,
         width: '95%',
+    },
+    percentageContainerInactive:{
+        display: 'none'
     },
     leftPercentage: {
         height: 35,
