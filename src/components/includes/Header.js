@@ -25,7 +25,7 @@ const Header = () => {
                 <View>
                     <Image source={require('../../assets/icons/Logo-p.png')} />
                 </View>
-                <TouchableOpacity style={styles.searchContainer}>
+                <TouchableOpacity activeOpacity={0.5} style={styles.searchContainer}>
                     <Search width={35} height={35} />
                 </TouchableOpacity>
             </View>
@@ -37,6 +37,7 @@ const Header = () => {
                     data={category}
                     renderItem={({ item }) => (
                     <TouchableOpacity
+                        activeOpacity={0.5}
                         onPress={() => setActive(item.id)}
                         style={active == item.id ? styles.categoryButtonActive : styles.categoryButton}>
                         <Text style={active == item.id ? styles.categoryTextActive : styles.categoryText}>

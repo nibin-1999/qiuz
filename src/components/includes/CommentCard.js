@@ -50,7 +50,7 @@ const CommentCard = () => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View style={styles.mainContainer}>
-                        <TouchableOpacity style={styles.nameContainer}>
+                        <TouchableOpacity activeOpacity={0.5} style={styles.nameContainer}>
                             <Text style={styles.nameText}>{item.name}</Text>
                         </TouchableOpacity>
                         <View style={styles.bottomContainer}>
@@ -58,11 +58,11 @@ const CommentCard = () => {
                                 <Text style={styles.commentText}>{item.comment}</Text>
                             </View>
                             <View style={styles.countContainer}>
-                                <TouchableOpacity style={styles.countTextContainer}>
+                                <TouchableOpacity activeOpacity={0.5} style={styles.countTextContainer}>
                                     <CommentIcon width={14} height={14} />
                                     <Text style={styles.countText}>{item.commentCount}</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.countTextContainer}>
+                                <TouchableOpacity activeOpacity={0.5} style={styles.countTextContainer}>
                                     <LikeIcon width={14} height={14} />
                                     <Text style={styles.countText}>{item.likeCount}</Text>
                                 </TouchableOpacity>

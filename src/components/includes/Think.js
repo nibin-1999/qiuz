@@ -26,6 +26,7 @@ const Think = () => {
                     />
                 </View>
                     <TouchableOpacity
+                       activeOpacity={0.5}
                         style={styles.iconContainer}
                         onPress={handleSendButtonPress}>
                         <SendIcon width={20} height={20} />

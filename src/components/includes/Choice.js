@@ -46,12 +46,14 @@ const Choice = () => {
         return (
             <View style={styles.bottomContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Detail', { item })}
+                        activeOpacity={0.5}
+                        onPress={() => navigation.navigate('Detail', { item, index })}
                         style={styles.questionContainer}>
                         <Text style={styles.question}>{item.title}</Text>
                     </TouchableOpacity>
                     <View style={styles.questionImageContainer}>
                         <TouchableOpacity
+                        activeOpacity={0.5}
                             style={styles.imageContainer}
                             onPress={() => {
                         
@@ -61,7 +63,7 @@ const Choice = () => {
                             setPercentage(!percentage)
                             setTimeout(() => {
                                 setPopup(true) 
-                            }, 3000);
+                            }, 2000);
                             }}>
                             <Image style={styles.image} source={item.image1} />
                             <View
@@ -78,7 +80,7 @@ const Choice = () => {
                             visible={popup}>
                                 <View style={styles.modalMainContainer}>
                                     <View style={styles.modalContainer}>
-                                        <TouchableOpacity onPress={()=> setPopup(false)} style={styles.close}>
+                                        <TouchableOpacity activeOpacity={0.5} onPress={()=> setPopup(false)} style={styles.close}>
                                             <Close height={30} width={30} />
                                         </TouchableOpacity>
                                         <View style={styles.Container}>
@@ -88,7 +90,7 @@ const Choice = () => {
                                             <Text style={styles.titleText}>You got 5 points from answering the question</Text>
                                             <Text style={styles.descriptionText}>keep answering questions and earn points for asking later</Text>
                                         </View>
-                                        <TouchableOpacity style={styles.buttonContainer} onPress={() =>setPopup(false)}>
+                                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonContainer} onPress={() =>setPopup(false)}>
                                             <Text style={styles.buttonText}>Back to home</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -96,6 +98,7 @@ const Choice = () => {
                         </Modal>
 
                         <TouchableOpacity
+                            activeOpacity={0.5}
                             style={styles.imageContainer}
                             onPress={() => {
                             const newSelectedRounds = [...selectedRounds];
@@ -103,7 +106,7 @@ const Choice = () => {
                             setSelectedRounds(newSelectedRounds);setPercentage(!percentage)
                             setTimeout(() => {
                                 setPopup(true) 
-                            }, 3000);
+                            }, 2000);
                             }}>
                             <Image style={styles.image} source={item.image2} />
                             <View

@@ -9,21 +9,21 @@ import Choice from '../includes/Choice'
 import Think from '../includes/Think'
 import CommentCard from '../includes/CommentCard';
 
-const Detail = ({item}) => {
+const Detail = ({item, index}) => {
 
     const navigation = useNavigation(); 
 	
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.headerContainer}>
-				<TouchableOpacity style={styles.iconContainer}>
+				<TouchableOpacity activeOpacity={0.5} style={styles.iconContainer}>
 					<ArrowIcon 
 						width={25} 
 						height={25} 
-						onPress={() => navigation.navigate('Home', { item })}
+						onPress={() => navigation.navigate('Home')}
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.iconContainer}>
+				<TouchableOpacity activeOpacity={0.5} style={styles.iconContainer}>
 					<MenuIcon width={25} height={25} />
 				</TouchableOpacity>
 			</View>
